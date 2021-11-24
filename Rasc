@@ -1,0 +1,26 @@
+mvnw package
+java -jar ./target/Drools-Teste-0.0.1-SNAPSHOT.jar	
+docker build -t bpidrools .
+docker run -p 3001:80 -p 3002:8080 bpidrools .
+
+
+Criar Container Registry - az acr create --name bpicamundaacr --resource-group bpicamunda --sku standard --admin-enabled true
+Upload Image - az acr build --registry bpicamundaacr --image bpicamunda .
+Criar o Containet >>> az container create --resource-group bpicamunda --name bpidrools --image bpicamundaacr.azurecr.io/bpidrools:latest --dns-name-label bpicamunda --ports 8080 --protocol TCP --cpu 2 --memory 2 --registry-username bpicamundaacr --registry-password [SENHA]
+
+
+
+-------------------------------
+
+
+
+>> az container list -o table >> to see a list of your containers,_
+_az container stop -g rg-camunda -n camunda-run to stop the instance,_
+_az container start -g rg-camunda -n camunda-run to stop the instance,_
+_az container delete -g rg-camunda -n camunda-run to delete the instance._
+
+
+az webapp log tail
+az webapp log tail --resource-group bpicamunda --name bpicamunda
+
+clean package docker:build -DpushImage azure-webapp:deploy

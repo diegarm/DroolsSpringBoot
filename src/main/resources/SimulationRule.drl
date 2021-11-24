@@ -1,0 +1,26 @@
+package KieRule;
+import pt.drools.Drools.Teste.Model.Simulation;
+
+rule "Bronze"
+
+when
+orderObject : Simulation(clientType=="Bronze" && amount>100000);
+then
+orderObject.setTax(orderObject.getTax() - 5);
+end;
+
+rule "Silver"
+
+when
+orderObject : Simulation(clientType=="Silver" && amount>100000);
+then
+orderObject.setTax(orderObject.getTax() - 6);
+end;
+
+rule "Gold"
+
+when
+orderObject : Simulation(clientType=="Gold" && amount>100000);
+then
+orderObject.setTax(orderObject.getTax() - 8);
+end;
